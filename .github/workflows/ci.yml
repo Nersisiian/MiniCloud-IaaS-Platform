@@ -1,4 +1,4 @@
-﻿name: CI/CD Pipeline
+name: CI/CD Pipeline
 
 on:
   push:
@@ -56,19 +56,38 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Install Poetry
-        run: pip install poetry
-
-      - name: Install dependencies (main only, no libvirt)
+      - name: Install dependencies with pip
         run: |
-          rm -f poetry.lock
-          poetry install --no-interaction --only main
+          python -m pip install --upgrade pip
+          pip install \
+            fastapi==0.115.0 \
+            uvicorn[standard]==0.30.0 \
+            sqlalchemy==2.0.30 \
+            asyncpg==0.29.0 \
+            alembic==1.13.0 \
+            pydantic==2.7.0 \
+            pydantic-settings==2.2.0 \
+            python-jose[cryptography]==3.3.0 \
+            passlib[bcrypt]==1.7.4 \
+            python-multipart==0.0.9 \
+            celery==5.4.0 \
+            redis==5.0.0 \
+            jinja2==3.1.0 \
+            prometheus-client==0.20.0 \
+            python-json-logger==2.0.7 \
+            slowapi==0.1.9 \
+            pytest==8.0.0 \
+            pytest-asyncio==0.23.0 \
+            httpx==0.27.0 \
+            black \
+            isort \
+            mypy
 
       - name: Lint with black/isort/mypy
         run: |
-          poetry run black --check .
-          poetry run isort --check-only .
-          poetry run mypy api core workers libvirt --ignore-missing-imports
+          black --check api core workers libvirt
+          isort --check-only api core workers libvirt
+          mypy api core workers libvirt --ignore-missing-imports
 
       - name: Run tests with coverage
         env:
@@ -76,7 +95,7 @@ jobs:
           REDIS_URL: redis://localhost:6379/0
           SECRET_KEY: ci-test-secret
         run: |
-          poetry run pytest --cov=. --cov-report=xml --cov-report=term-missing
+          pytest --cov=. --cov-report=xml --cov-report=term-missing
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4

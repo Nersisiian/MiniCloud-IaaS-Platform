@@ -1,4 +1,4 @@
-﻿[tool.poetry]
+[tool.poetry]
 name = "minicloud"
 version = "0.1.0"
 description = "MiniCloud IaaS Platform - KVM Orchestrator"
