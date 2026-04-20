@@ -15,15 +15,15 @@ MiniCloud is a scalable Infrastructure‑as‑a‑Service control plane that man
 
 | CI/CD Pipeline | API Documentation |
 |:---:|:---:|
-| ![CI/CD](docs/images/ci-cd.png) | ![Swagger](docs/images/swagger.png) |
+| <img src="docs/images/ci-cd.png" alt="CI/CD" width="400"/> | <img src="docs/images/swagger.png" alt="Swagger" width="400"/> |
 
 | VM Creation | Prometheus Metrics |
 |:---:|:---:|
-| ![VM Create](docs/images/vm-create.png) | ![Metrics](docs/images/metrics.png) |
+| <img src="docs/images/vm-create.png" alt="VM Create" width="400"/> | <img src="docs/images/metrics.png" alt="Metrics" width="400"/> |
 
 | Web UI Dashboard |
 |:---:|
-| ![Web UI](docs/images/webui.png) |
+| <img src="docs/images/webui.png" alt="Web UI" width="800"/> |
 
 ---
 
