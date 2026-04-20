@@ -14,7 +14,7 @@ permissions:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME_API: ${{ github.repository }}-api
-  IMAGE_NAME_WORKER: ${{ github.repository }}-worker
+  # IMAGE_NAME_WORKER: ${{ github.repository }}-worker
 
 jobs:
   test:
@@ -123,26 +123,27 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Extract metadata for Worker image
-        id: meta_worker
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_WORKER }}
-          tags: |
-            type=sha,prefix=
-            type=ref,event=branch
-            type=raw,value=latest
+      # Сборка Worker временно отключена из-за проблем с libvirt в CI
+      # - name: Extract metadata for Worker image
+      #   id: meta_worker
+      #   uses: docker/metadata-action@v5
+      #   with:
+      #     images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_WORKER }}
+      #     tags: |
+      #       type=sha,prefix=
+      #       type=ref,event=branch
+      #       type=raw,value=latest
 
-      - name: Build and push Worker image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          file: ./docker/Dockerfile.worker
-          push: true
-          tags: ${{ steps.meta_worker.outputs.tags }}
-          labels: ${{ steps.meta_worker.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+      # - name: Build and push Worker image
+      #   uses: docker/build-push-action@v5
+      #   with:
+      #     context: .
+      #     file: ./docker/Dockerfile.worker
+      #     push: true
+      #     tags: ${{ steps.meta_worker.outputs.tags }}
+      #     labels: ${{ steps.meta_worker.outputs.labels }}
+      #     cache-from: type=gha
+      #     cache-to: type=gha,mode=max
 
   security:
     runs-on: ubuntu-latest
