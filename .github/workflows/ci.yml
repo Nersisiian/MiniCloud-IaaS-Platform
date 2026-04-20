@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+﻿name: CI/CD Pipeline
 
 on:
   push:
@@ -186,4 +186,5 @@ jobs:
         uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: 'trivy-results.sarif'
+
 
